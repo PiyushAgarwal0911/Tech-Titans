@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UrjaPath</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        header img {
+            height: 50px; /* Adjust the size of the logo if necessary */
+            margin-right: 15px; /* Space between logo and title */
+        }
+
+        .main-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .section {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .section:hover {
+            transform: scale(1.02);
+        }
+
+        .section h2 {
+            margin-bottom: 20px;
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 0;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .card img {
+            width: 100%;
+            height: auto;
+            max-height: 150px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            margin-bottom: 15px;
+        }
+
+        .card button {
+            background-color: #28a745;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            position: relative;
+        }
+
+        .card button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <img src="https://logo-suggestion.renderforest.com/suggestions-images/6cf8/c2b6/6cf8c2b6fff4ca6d4253073404c40cc5.png" alt="UrjaPath Logo">
+        <h1>Welcome to UrjaPath</h1>
+    </header>
+
+    <div class="main-container">
+        <!-- Bikes Column -->
+        <section class="section">
+            <h2>Bikes</h2>
+            <div class="card">
+                <img src="https://imgd.aeplcdn.com/1280x720/n/cw/ec/184761/roadster-pro-left-front-three-quarter.jpeg?isig=0" alt="Electric Bike">
+                <h3>Electric Bike</h3>
+                <p>Charge your electric bike here.</p>
+                <button onclick="goToLocationPage('electricBike')">Select</button>
+            </div>
+        </section>
+
+        <!-- Autos Column -->
+        <section class="section">
+            <h2>Autos</h2>
+            <div class="card">
+                <img src="https://truckcdn.cardekho.com/in/mahindra/treo-yaari/mahindra-treo-yaari-62610.jpg?impolicy=resize&imwidth=420" alt="Electric Auto">
+                <h3>Electric Auto</h3>
+                <p>Charge your electric auto here.</p>
+                <button onclick="goToLocationPage('electricAuto')">Select</button>
+            </div>
+        </section>
+
+        <!-- Cars Column -->
+        <section class="section">
+            <h2>Cars</h2>
+            <div class="card">
+                <img src="https://imgd.aeplcdn.com/310x174/n/cw/ec/174611/windsor-ev-exterior-right-front-three-quarter.jpeg?isig=0&q=80" alt="Electric Car">
+                <h3>Electric Car</h3>
+                <p>Charge your electric car here.</p>
+                <button onclick="goToLocationPage('electricCar')">Select</button>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Vehicle Charging Station</p>
+    </footer>
+
+    <script>
+        // JavaScript function for navigation to a new page
+        function goToLocationPage(vehicleType) {
+            // Redirect to a page based on the selected vehicle type
+            // You can replace 'locationPage.html' with unique pages for each vehicle
+            window.location.href = 'locationPage.html?vehicle=' + vehicleType;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Your Current Location</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFAkZ3I4yqMDMIpeBTUhah6Kn1X4tRVyI&callback=initMap" async defer></script>
+    <style>
+        /* General Styles */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0;
+            padding: 20px;
+            background: url('https://source.unsplash.com/1920x1080/?electric-car') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+        }
+        h3 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #4caf50;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-bottom: 20px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+        #map {
+            height: 500px;
+            width: 100%;
+            margin-bottom: 20px;
+            border-radius: 10px;
+            border: 2px solid #4caf50;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Grid Container Styles */
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2 columns */
+            gap: 20px;
+            max-width: 800px;
+            width: 100%;
+        }
+
+        /* Grid Box Styles */
+        .grid-box {
+            height: 150px;
+            background-color: rgba(72, 187, 120, 0.9); /* Green theme with transparency */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 1px solid #2e7d32;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 18px;
+            color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+        .grid-box:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Link Styles Inside Grid Boxes */
+        .grid-box a {
+            text-decoration: none;
+            color: #fff;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+    <script>
+        let map;
+        let userMarker;
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: { lat: 0, lng: 0 }
+            });
+
+            const cachedLocation = sessionStorage.getItem('userLocation');
+            if (cachedLocation) {
+                const location = JSON.parse(cachedLocation);
+                map.setCenter(location);
+                addOrUpdateMarker(location);
+            }
+        }
+
+        function addOrUpdateMarker(location) {
+            if (!userMarker) {
+                userMarker = new google.maps.Marker({
+                    position: location,
+                    map: map,
+                    title: "You are here"
+                });
+            } else {
+                userMarker.setPosition(location);
+            }
+        }
+
+        function goToCurrentLocation() {
+            const cachedLocation = sessionStorage.getItem('userLocation');
+
+            if (cachedLocation) {
+                const location = JSON.parse(cachedLocation);
+                map.setCenter(location);
+                addOrUpdateMarker(location);
+            } else if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const userLocation = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                        map.setCenter(userLocation);
+                        addOrUpdateMarker(userLocation);
+                        sessionStorage.setItem('userLocation', JSON.stringify(userLocation));
+                    },
+                    function() {
+                        alert("Geolocation failed or permission denied.");
+                    }
+                );
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+    </script>
+</head>
+<body>
+    <h3>Your Current Location</h3>
+    <button onclick="goToCurrentLocation()">Go to My Location</button>
+    <div id="map"></div>
+
+    <div class="grid-container">
+        <div class="grid-box">
+            <a href="station1.html">GLIDA Charging Station, Yelahanka, Bengaluru</a>
+        </div>
+        <div class="grid-box">
+            <a href="station2.html">Ather Grid Charging Station, Nehru Nagar, Bengaluru</a>
+        </div>
+        <div class="grid-box">
+            <a href="station3.html">Okaya Charging Station, Hunasamaranahalli, Bengaluru</a>
+        </div>
+        <div class="grid-box">
+            <a href="station4.html">Delta Charging Station, Suggappa Layout, Bengaluru</a>
+        </div>
+        <div class="grid-box">
+            <a href="station5.html">Tata Power Charging Station, Hebbal, Bengaluru</a>
+        </div>
+        <div class="grid-box">
+            <a href="station6.html">Kazam Charging Station,ttur Layout, Yelahanka New Town, Bengaluru</a>
+        </div>
+        <div class="grid-box">
+            <a href="station8.html">Bolt.Earth - Electric Vehicle Charging Station, Yelahanka New Town, Bengaluru</a>
+        </div>
+        <div class="grid-box">
+            <a href="station7.html">ElectricPe Charging Station</a>
+        </div>
+    </div>
+</body>
+</html>
