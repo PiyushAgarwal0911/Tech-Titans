@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Vehicle Charging Station</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.3s ease-in-out;
+        }
+
+        header {
+            background-color: #333;
+            color: #fff;
+            padding: 15px 0;
+            text-align: center;
+        }
+
+        .main-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .section {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.2s;
+        }
+
+        .section:hover {
+            transform: scale(1.02);
+        }
+
+        .section h2 {
+            margin-bottom: 20px;
+            background-color: #28a745;
+            color: #fff;
+            padding: 10px 0;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .card {
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+            padding: 15px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .card h3 {
+            margin-bottom: 10px;
+        }
+
+        .card p {
+            margin-bottom: 15px;
+        }
+
+        .card button {
+            background-color: #28a745;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: background-color 0.3s;
+            position: relative;
+        }
+
+        .card button:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Welcome to the Interactive Vehicle Charging Station</h1>
+    </header>
+
+    <div class="main-container">
+        <!-- Bikes Column -->
+        <section class="section">
+            <h2>Bikes</h2>
+            <div class="card">
+                <h3>Electric Bike</h3>
+                <p>Charge your electric bike here.</p>
+                <button onclick="Locationpage.html('electricBike')">Select</button>
+            </div>
+            <div class="card">
+                <h3>Electric Scooter</h3>
+                <p>Charge your electric scooter here.</p>
+                <button onclick="location.html('electricScooter')">Select</button>
+            </div>
+        </section>
+
+        <!-- Autos Column -->
+        <section class="section">
+            <h2>Autos</h2>
+            <div class="card">
+                <h3>Electric Auto</h3>
+                <p>Charge your electric auto here.</p>
+                <button onclick="goToLocationPage('electricAuto')">Select</button>
+            </div>
+            <div class="card">
+                <h3>Electric Rickshaw</h3>
+                <p>Charge your electric rickshaw here.</p>
+                <button onclick="goToLocationPage('electricRickshaw')">Select</button>
+            </div>
+        </section>
+
+        <!-- Cars Column -->
+        <section class="section">
+            <h2>Cars</h2>
+            <div class="card">
+                <h3>Electric Car</h3>
+                <p>Charge your electric car here.</p>
+                <button onclick="goToLocationPage('electricCar')">Select</button>
+            </div>
+            <div class="card">
+                <h3>Electric Sedan</h3>
+                <p>Charge your electric sedan here.</p>
+                <button onclick="goToLocationPage('electricSedan')">Select</button>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Vehicle Charging Station</p>
+    </footer>
+
+    <script>
+        // JavaScript function for navigation to a new page
+        function goToLocationPage(vehicleType) {
+            // Redirect to a page based on the selected vehicle type
+            // You can replace 'locationPage.html' with unique pages for each vehicle
+            window.location.href = 'locationPage.html?vehicle=' + vehicleType;
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Map with Cached Location and Charging Stations</title>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAFAkZ3I4yqMDMIpeBTUhah6Kn1X4tRVyI&callback=initMap" async defer></script>
+    <script>
+        let map;
+        let userMarker;
+
+        // Initialize the map
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                zoom: 12,
+                center: {lat: 13.1067, lng: 77.5963} // Initial center set to Yelahanka, Bengaluru
+            });
+
+            // Load the last known location from session storage if available
+            const cachedLocation = sessionStorage.getItem('userLocation');
+            if (cachedLocation) {
+                const location = JSON.parse(cachedLocation);
+                map.setCenter(location);
+                addOrUpdateMarker(location);
+            }
+        }
+
+        // Function to add or update the user's location marker on the map
+        function addOrUpdateMarker(location) {
+            if (!userMarker) {
+                userMarker = new google.maps.Marker({
+                    position: location,
+                    map: map,
+                    title: "You are here"
+                });
+            } else {
+                userMarker.setPosition(location);
+            }
+        }
+
+        // Function to go to the user's current location
+        function goToCurrentLocation() {
+            const cachedLocation = sessionStorage.getItem('userLocation');
+
+            if (cachedLocation) {
+                // If location is cached, use it without asking permission
+                const location = JSON.parse(cachedLocation);
+                map.setCenter(location);
+                addOrUpdateMarker(location);
+            } else if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                    function(position) {
+                        const userLocation = {
+                            lat: position.coords.latitude,
+                            lng: position.coords.longitude
+                        };
+                       
+                        // Center map on the user's location
+                        map.setCenter(userLocation);
+                        addOrUpdateMarker(userLocation);
+
+                        // Cache the location to avoid re-asking permission
+                        sessionStorage.setItem('userLocation', JSON.stringify(userLocation));
+                    },
+                    function() {
+                        alert("Geolocation failed or permission denied.");
+                    }
+                );
+            } else {
+                alert("Geolocation is not supported by this browser.");
+            }
+        }
+
+        // Function to handle dropdown selection and navigate to station pages
+        function navigateToStation() {
+            const selectElement = document.getElementById('chargingStationSelect');
+            const selectedValue = selectElement.value;
+
+            if (selectedValue) {
+                // Redirect to the selected station's page
+                window.location.href = selectedValue + ".html";
+            }
+        }
+    </script>
+</head>
+<body>
+    <h3>Map with Cached Location and Charging Stations</h3>
+    <!-- Button to go to the user's current location -->
+    <button onclick="goToCurrentLocation()">Go to My Location</button>
+   
+    <!-- Map container -->
+    <div id="map" style="height: 500px; width: 100%; margin-bottom: 20px;"></div>
+
+    <!-- Dropdown for choosing a charging station -->
+    <div style="margin: 20px 0;">
+        <label for="chargingStationSelect"><strong>Choose Your Charging Station:</strong></label>
+        <select id="chargingStationSelect" onchange="navigateToStation()">
+            <option value="">-- Select a Charging Station --</option>
+            <option value="station1">ABC EV Charging Station, Yelahanka (5 km from NMIT)</option>
+            <option value="station2">XYZ Fast Charge, Yelahanka New Town (6 km from NMIT)</option>
+            <option value="station3">GreenVolt EV Station, Doddaballapura Road (7.5 km from NMIT)</option>
+            <option value="station4">ChargePoint Hub, Kogilu Cross (4.8 km from NMIT)</option>
+            <option value="station5">ReCharge EV Station, Yelahanka Satellite Town (8.2 km from NMIT)</option>
+        </select>
+    </div>
+</body>
+</html>
